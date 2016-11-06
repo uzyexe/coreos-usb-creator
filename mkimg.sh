@@ -303,7 +303,7 @@ make_iso() {
     mkisofs -V "${label}" -quiet -l -r -J -input-charset utf-8 -o "${output}" \
             -b syslinux/isolinux.bin -c syslinux/boot.cat \
             -no-emul-boot -boot-load-size 4 -boot-info-table .
-    ${syslinux}/bios/utils/isohybrid "${output}"
+    isohybrid "${output}"
     echo "done"
 }
 
