@@ -18,6 +18,7 @@ MEMTEST_VERSION="5.01"
 IMG_SIZE=1000
 IMG_TYPE="ISO"
 AUTOLOGIN=0
+FIRSTBOOT=0
 INIT_SCRIPT="cloud-config.yml"
 OEM_CLOUD_CONFIG="oem-config.yml"
 INSTALL_SCRIPT=""
@@ -399,6 +400,9 @@ while getopts "haus:v:l:c:o:k:i:-:" optchar; do
                 autologin)
 		              AUTOLOGIN=1
                 ;;
+                firstboot)
+		              FIRSTBOOT=1
+                ;;
                 usb)
 		              IMG_TYPE="IMG"
                 ;;
@@ -440,6 +444,9 @@ while getopts "haus:v:l:c:o:k:i:-:" optchar; do
         a)
             AUTOLOGIN=1
         ;;
+        f)
+            FIRSTBOOT=1
+        ;;
         u)
             IMG_TYPE="IMG"
         ;;
@@ -469,6 +476,7 @@ COREOS_INITRD_URL="${COREOS_BASE_URL}/${COREOS_VERSION}/${COREOS_INITRD_BASENAME
 
 # Boot parameters
 [ "${AUTOLOGIN}" == "1" ] && BOOT_PARAMS="${BOOT_PARAMS} coreos.autologin"
+[ "${FIRSTBOOT}" == "1" ] && BOOT_PARAMS="${BOOT_PARAMS} coreos.first_boot=1"
 [ ! -z "${SSHKEY}" ] && BOOT_PARAMS="${BOOT_PARAMS} sshkey=\"${SSHKEY}\""
 [ ! -z "${CLOUD_CONFIG_URL}" ] && BOOT_PARAMS="${BOOT_PARAMS} cloud-config-url=\"${CLOUD_CONFIG_URL}\""
 
